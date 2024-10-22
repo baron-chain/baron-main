@@ -1,0 +1,12 @@
+syntax = "proto3";
+package baronchain.baronchain;
+
+import "gogoproto/gogo.proto";
+import "baronchain/baronchain/params.proto";
+
+option go_package = "baronchain/x/baronchain/types";
+
+// GenesisState defines the baronchain module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
