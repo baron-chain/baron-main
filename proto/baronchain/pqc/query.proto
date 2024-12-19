@@ -1,0 +1,37 @@
+// proto/baronchain/pqc/query.proto
+syntax = "proto3";
+package baronchain.pqc;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+
+option go_package = "baronchain/x/pqc/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // KyberPublicKey queries a public key by address
+  rpc KyberPublicKey(QueryKyberPublicKeyRequest) returns (QueryKyberPublicKeyResponse) {
+    option (google.api.http).get = "/baronchain/pqc/public_key/{address}";
+  }
+  
+  // EncryptedMessage queries an encrypted message by recipient
+  rpc EncryptedMessage(QueryEncryptedMessageRequest) returns (QueryEncryptedMessageResponse) {
+    option (google.api.http).get = "/baronchain/pqc/message/{recipient}";
+  }
+}
+
+message QueryKyberPublicKeyRequest {
+  string address = 1;
+}
+
+message QueryKyberPublicKeyResponse {
+  bytes public_key = 1;
+}
+
+message QueryEncryptedMessageRequest {
+  string recipient = 1;
+}
+
+message QueryEncryptedMessageResponse {
+  bytes ciphertext = 1;
+}
