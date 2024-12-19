@@ -1,0 +1,26 @@
+// proto/baronchain/pqc/tx.proto
+syntax = "proto3";
+package baronchain.pqc;
+
+option go_package = "baronchain/x/pqc/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc StoreKyberPublicKey(MsgStoreKyberPublicKey) returns (MsgStoreKyberPublicKeyResponse);
+  rpc SendEncryptedMessage(MsgSendEncryptedMessage) returns (MsgSendEncryptedMessageResponse);
+}
+
+message MsgStoreKyberPublicKey {
+  string creator = 1;
+  bytes public_key = 2;
+}
+
+message MsgStoreKyberPublicKeyResponse {}
+
+message MsgSendEncryptedMessage {
+  string creator = 1;
+  string recipient = 2;
+  bytes ciphertext = 3;
+}
+
+message MsgSendEncryptedMessageResponse {}
