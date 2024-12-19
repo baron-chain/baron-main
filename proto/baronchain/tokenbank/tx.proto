@@ -1,0 +1,7 @@
+syntax = "proto3";
+package baronchain.tokenbank;
+
+option go_package = "baronchain/x/tokenbank/types";
+
+// Msg defines the Msg service.
+service Msg {}

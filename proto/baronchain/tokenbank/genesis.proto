@@ -1,0 +1,12 @@
+syntax = "proto3";
+package baronchain.tokenbank;
+
+import "gogoproto/gogo.proto";
+import "baronchain/tokenbank/params.proto";
+
+option go_package = "baronchain/x/tokenbank/types";
+
+// GenesisState defines the tokenbank module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
