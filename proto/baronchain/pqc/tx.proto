@@ -2,12 +2,16 @@
 syntax = "proto3";
 package baronchain.pqc;
 
+import "gogoproto/gogo.proto";
+import "baronchain/pqc/params.proto";
+
 option go_package = "baronchain/x/pqc/types";
 
 // Msg defines the Msg service.
 service Msg {
   rpc StoreKyberPublicKey(MsgStoreKyberPublicKey) returns (MsgStoreKyberPublicKeyResponse);
   rpc SendEncryptedMessage(MsgSendEncryptedMessage) returns (MsgSendEncryptedMessageResponse);
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 }
 
 message MsgStoreKyberPublicKey {
@@ -24,3 +28,16 @@ message MsgSendEncryptedMessage {
 }
 
 message MsgSendEncryptedMessageResponse {}
+
+// MsgUpdateParams is the Msg/UpdateParams request type
+message MsgUpdateParams {
+  // authority is the address of the governance account.
+  string authority = 1;
+  
+  // params defines the parameters to update.
+  Params params = 2 [(gogoproto.nullable) = false];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
