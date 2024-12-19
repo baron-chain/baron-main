@@ -1,0 +1,10 @@
+// proto/baronchain/pqc/params.proto
+syntax = "proto3";
+package baronchain.pqc;
+
+option go_package = "baronchain/x/pqc/types";
+
+// Params defines the parameters for the PQC module.
+message Params {
+    uint64 max_message_size = 1 [(gogoproto.moretags) = "yaml:\"max_message_size\""];
+}

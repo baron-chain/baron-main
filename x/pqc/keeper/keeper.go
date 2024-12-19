@@ -4,11 +4,11 @@ package keeper
 import (
 	"fmt"
 
+	"cosmossdk.io/log" // Updated import for CometBFT logger
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/tendermint/tendermint/libs/log"
 
 	"baronchain/x/pqc/types"
 )
@@ -19,6 +19,7 @@ type (
 		storeKey   storetypes.StoreKey
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
+		logger     log.Logger // Updated logger type
 	}
 )
 
@@ -27,6 +28,7 @@ func NewKeeper(
 	storeKey,
 	memKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
+	logger log.Logger, // Added logger parameter
 ) *Keeper {
 	// Ensure the module account is set
 	if !ps.HasKeyTable() {
@@ -38,11 +40,13 @@ func NewKeeper(
 		storeKey:   storeKey,
 		memKey:     memKey,
 		paramstore: ps,
+		logger:     logger.With("module", fmt.Sprintf("x/%s", types.ModuleName)),
 	}
 }
 
-func (k Keeper) Logger(ctx sdk.Context) log.Logger {
-	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
+// Logger returns a module-specific logger
+func (k Keeper) Logger() log.Logger {
+	return k.logger
 }
 
 // StoreKyberPublicKey stores a public key for an address
@@ -100,4 +104,16 @@ func (k Keeper) GetEncryptedMessage(ctx sdk.Context, recipient string) ([]byte, 
 		return nil, fmt.Errorf("no message found for recipient: %s", recipient)
 	}
 	return ciphertext, nil
+}
+
+// GetParams returns all current parameters as a types.Params instance
+func (k Keeper) GetParams(ctx sdk.Context) types.Params {
+	var params types.Params
+	k.paramstore.GetParamSet(ctx, &params)
+	return params
+}
+
+// SetParams sets the params
+func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
+	k.paramstore.SetParamSet(ctx, &params)
 }
