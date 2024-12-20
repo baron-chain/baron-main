@@ -23,6 +23,16 @@ func NewQueryServerImpl(keeper Keeper) types.QueryServer {
 
 var _ types.QueryServer = queryServer{}
 
+// Params implements the Query/Params gRPC method
+func (k queryServer) Params(c context.Context, req *types.QueryParamsRequest) (*types.QueryParamsResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(c)
+
+	return &types.QueryParamsResponse{Params: k.GetParams(ctx)}, nil
+}
+
 // KyberPublicKey implements the Query/KyberPublicKey gRPC method
 func (k queryServer) KyberPublicKey(goCtx context.Context, req *types.QueryKyberPublicKeyRequest) (*types.QueryKyberPublicKeyResponse, error) {
 	if req == nil {

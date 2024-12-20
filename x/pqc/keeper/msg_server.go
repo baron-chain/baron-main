@@ -3,6 +3,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"baronchain/x/pqc/types"
 
@@ -43,4 +44,16 @@ func (k msgServer) SendEncryptedMessage(goCtx context.Context, msg *types.MsgSen
 	}
 
 	return &types.MsgSendEncryptedMessageResponse{}, nil
+}
+
+// UpdateParams handles updating the module parameters
+func (k msgServer) UpdateParams(goCtx context.Context, req *types.MsgUpdateParams) (*types.MsgUpdateParamsResponse, error) {
+	if k.GetAuthority() != req.Authority {
+		return nil, fmt.Errorf("invalid authority; expected %s, got %s", k.GetAuthority(), req.Authority)
+	}
+
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	k.SetParams(ctx, req.Params)
+
+	return &types.MsgUpdateParamsResponse{}, nil
 }

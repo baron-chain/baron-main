@@ -117,3 +117,8 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.SetParamSet(ctx, &params)
 }
+
+// GetAuthority returns the module's authority.
+func (k Keeper) GetAuthority() string {
+	return "gov" // Usually the governance module has authority to change params
+}

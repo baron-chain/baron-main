@@ -205,41 +205,130 @@ func (m *QueryEncryptedMessageResponse) GetCiphertext() []byte {
 	return nil
 }
 
+// QueryParamsRequest is the request type for the Query/Params RPC method
+type QueryParamsRequest struct {
+}
+
+func (m *QueryParamsRequest) Reset()         { *m = QueryParamsRequest{} }
+func (m *QueryParamsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryParamsRequest) ProtoMessage()    {}
+func (*QueryParamsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c20b3d2129c030bc, []int{4}
+}
+func (m *QueryParamsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryParamsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryParamsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryParamsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryParamsRequest.Merge(m, src)
+}
+func (m *QueryParamsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryParamsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryParamsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryParamsRequest proto.InternalMessageInfo
+
+// QueryParamsResponse is the response type for the Query/Params RPC method
+type QueryParamsResponse struct {
+	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+}
+
+func (m *QueryParamsResponse) Reset()         { *m = QueryParamsResponse{} }
+func (m *QueryParamsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryParamsResponse) ProtoMessage()    {}
+func (*QueryParamsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c20b3d2129c030bc, []int{5}
+}
+func (m *QueryParamsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryParamsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryParamsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryParamsResponse.Merge(m, src)
+}
+func (m *QueryParamsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryParamsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryParamsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryParamsResponse proto.InternalMessageInfo
+
+func (m *QueryParamsResponse) GetParams() Params {
+	if m != nil {
+		return m.Params
+	}
+	return Params{}
+}
+
 func init() {
 	proto.RegisterType((*QueryKyberPublicKeyRequest)(nil), "baronchain.pqc.QueryKyberPublicKeyRequest")
 	proto.RegisterType((*QueryKyberPublicKeyResponse)(nil), "baronchain.pqc.QueryKyberPublicKeyResponse")
 	proto.RegisterType((*QueryEncryptedMessageRequest)(nil), "baronchain.pqc.QueryEncryptedMessageRequest")
 	proto.RegisterType((*QueryEncryptedMessageResponse)(nil), "baronchain.pqc.QueryEncryptedMessageResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "baronchain.pqc.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "baronchain.pqc.QueryParamsResponse")
 }
 
 func init() { proto.RegisterFile("baronchain/pqc/query.proto", fileDescriptor_c20b3d2129c030bc) }
 
 var fileDescriptor_c20b3d2129c030bc = []byte{
-	// 376 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xcd, 0x4a, 0xf3, 0x40,
-	0x14, 0x6d, 0x0a, 0xdf, 0x27, 0x1d, 0xa4, 0xc8, 0x20, 0x52, 0x62, 0x1b, 0x24, 0xfe, 0x20, 0xb6,
-	0x66, 0x44, 0xc1, 0x55, 0x41, 0x10, 0x5c, 0x15, 0x41, 0xbb, 0x74, 0x23, 0x49, 0x7a, 0x49, 0x83,
-	0x75, 0x66, 0x32, 0x33, 0x85, 0x86, 0xd2, 0x8d, 0x4f, 0x20, 0xb8, 0x70, 0xe3, 0xc3, 0xb8, 0x74,
-	0x59, 0x70, 0xe3, 0x52, 0x5a, 0x1f, 0x44, 0x3a, 0x49, 0xed, 0x0f, 0x2d, 0x74, 0x97, 0xdc, 0x7b,
-	0xce, 0x3d, 0xe7, 0x9e, 0x3b, 0xc8, 0xf4, 0x5c, 0xc1, 0xa8, 0xdf, 0x74, 0x43, 0x4a, 0x78, 0xe4,
-	0x93, 0xa8, 0x0d, 0x22, 0x76, 0xb8, 0x60, 0x8a, 0xe1, 0xfc, 0xa4, 0xe7, 0xf0, 0xc8, 0x37, 0x37,
-	0x03, 0x16, 0x30, 0xdd, 0x22, 0xa3, 0xaf, 0x04, 0x65, 0x16, 0x03, 0xc6, 0x82, 0x16, 0x10, 0x97,
-	0x87, 0xc4, 0xa5, 0x94, 0x29, 0x57, 0x85, 0x8c, 0xca, 0xa4, 0x6b, 0x9f, 0x23, 0xf3, 0x76, 0x34,
-	0xb2, 0x16, 0x7b, 0x20, 0x6e, 0xda, 0x5e, 0x2b, 0xf4, 0x6b, 0x10, 0xd7, 0x21, 0x6a, 0x83, 0x54,
-	0xb8, 0x80, 0xd6, 0xdc, 0x46, 0x43, 0x80, 0x94, 0x05, 0x63, 0xc7, 0x38, 0xcc, 0xd5, 0xc7, 0xbf,
-	0x76, 0x15, 0x6d, 0x2f, 0xe4, 0x49, 0xce, 0xa8, 0x04, 0x5c, 0x42, 0x88, 0xeb, 0xe2, 0xfd, 0x03,
-	0xc4, 0x9a, 0xbb, 0x5e, 0xcf, 0xf1, 0x31, 0xcc, 0xae, 0xa2, 0xa2, 0x66, 0x5f, 0x51, 0x5f, 0xc4,
-	0x5c, 0x41, 0xe3, 0x1a, 0xa4, 0x74, 0x03, 0x18, 0xeb, 0x16, 0x51, 0x4e, 0x80, 0x1f, 0xf2, 0x10,
-	0xa8, 0x4a, 0x95, 0x27, 0x05, 0xfb, 0x02, 0x95, 0x96, 0xb0, 0x53, 0x75, 0x0b, 0x21, 0x3f, 0xe4,
-	0x4d, 0x10, 0x0a, 0x3a, 0x2a, 0x55, 0x9f, 0xaa, 0x9c, 0xbe, 0x67, 0xd1, 0x3f, 0x3d, 0x01, 0xbf,
-	0x1a, 0x28, 0x3f, 0xbb, 0x02, 0x3e, 0x72, 0x66, 0x63, 0x75, 0x96, 0xe7, 0x63, 0x96, 0x57, 0xc2,
-	0x26, 0xae, 0xec, 0xca, 0xd3, 0xe7, 0xcf, 0x4b, 0xf6, 0x00, 0xef, 0x91, 0xb9, 0x9b, 0x4e, 0x92,
-	0x22, 0xdd, 0x34, 0xdf, 0x1e, 0x7e, 0x33, 0xd0, 0xc6, 0xfc, 0x82, 0xb8, 0xb2, 0x50, 0x6f, 0x49,
-	0x8a, 0xe6, 0xf1, 0x8a, 0xe8, 0xd4, 0x5f, 0x59, 0xfb, 0xdb, 0xc7, 0xbb, 0xf3, 0xfe, 0x1e, 0x13,
-	0x20, 0xe9, 0xfe, 0x9d, 0xa0, 0x77, 0x79, 0xf2, 0x31, 0xb0, 0x8c, 0xfe, 0xc0, 0x32, 0xbe, 0x07,
-	0x96, 0xf1, 0x3c, 0xb4, 0x32, 0xfd, 0xa1, 0x95, 0xf9, 0x1a, 0x5a, 0x99, 0xbb, 0xad, 0x29, 0x76,
-	0x47, 0xf3, 0x55, 0xcc, 0x41, 0x7a, 0xff, 0xf5, 0x83, 0x3b, 0xfb, 0x0d, 0x00, 0x00, 0xff, 0xff,
-	0x00, 0xac, 0x65, 0x49, 0xd2, 0x02, 0x00, 0x00,
+	// 452 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0x4f, 0x6b, 0x13, 0x41,
+	0x14, 0xcf, 0xfa, 0x27, 0x92, 0xa7, 0x14, 0x19, 0x4b, 0x08, 0xdb, 0x74, 0x94, 0xa9, 0x8a, 0xd8,
+	0x9a, 0x91, 0x2a, 0x9e, 0x0a, 0x42, 0xc1, 0x53, 0x10, 0x6a, 0x8e, 0x5e, 0x64, 0xb2, 0x79, 0x6c,
+	0x17, 0xdb, 0x99, 0xd9, 0x99, 0x09, 0x74, 0x29, 0xbd, 0xf8, 0x09, 0x04, 0x0f, 0x5e, 0xfc, 0x16,
+	0x7e, 0x89, 0x1e, 0x0b, 0x5e, 0x3c, 0x89, 0x24, 0x7e, 0x10, 0xe9, 0xec, 0xa4, 0x6d, 0x96, 0x4d,
+	0xc9, 0x6d, 0xf7, 0xbd, 0xdf, 0x9f, 0xc7, 0xef, 0xc7, 0x40, 0x3c, 0x14, 0x46, 0xc9, 0x64, 0x5f,
+	0x64, 0x92, 0xeb, 0x3c, 0xe1, 0xf9, 0x18, 0x4d, 0xd1, 0xd3, 0x46, 0x39, 0x45, 0x56, 0x2e, 0x77,
+	0x3d, 0x9d, 0x27, 0xf1, 0x6a, 0xaa, 0x52, 0xe5, 0x57, 0xfc, 0xfc, 0xab, 0x44, 0xc5, 0xdd, 0x54,
+	0xa9, 0xf4, 0x00, 0xb9, 0xd0, 0x19, 0x17, 0x52, 0x2a, 0x27, 0x5c, 0xa6, 0xa4, 0x0d, 0xdb, 0xb5,
+	0x8a, 0xbe, 0x16, 0x46, 0x1c, 0x86, 0x25, 0x7b, 0x03, 0xf1, 0x87, 0x73, 0xbf, 0x7e, 0x31, 0x44,
+	0xb3, 0x37, 0x1e, 0x1e, 0x64, 0x49, 0x1f, 0x8b, 0x01, 0xe6, 0x63, 0xb4, 0x8e, 0x74, 0xe0, 0x8e,
+	0x18, 0x8d, 0x0c, 0x5a, 0xdb, 0x89, 0x1e, 0x45, 0xcf, 0x5a, 0x83, 0xd9, 0x2f, 0xdb, 0x81, 0xb5,
+	0x5a, 0x9e, 0xd5, 0x4a, 0x5a, 0x24, 0xeb, 0x00, 0xda, 0x0f, 0x3f, 0x7d, 0xc6, 0xc2, 0x73, 0xef,
+	0x0d, 0x5a, 0x7a, 0x06, 0x63, 0x3b, 0xd0, 0xf5, 0xec, 0x77, 0x32, 0x31, 0x85, 0x76, 0x38, 0x7a,
+	0x8f, 0xd6, 0x8a, 0x14, 0x67, 0xbe, 0x5d, 0x68, 0x19, 0x4c, 0x32, 0x9d, 0xa1, 0x74, 0xc1, 0xf9,
+	0x72, 0xc0, 0xde, 0xc2, 0xfa, 0x02, 0x76, 0x70, 0xa7, 0x00, 0x49, 0xa6, 0xf7, 0xd1, 0x38, 0x3c,
+	0x72, 0xc1, 0xfd, 0xca, 0x84, 0xad, 0x02, 0xf1, 0x02, 0x7b, 0x3e, 0x89, 0x60, 0xca, 0xfa, 0xf0,
+	0x60, 0x6e, 0x1a, 0xc4, 0x5e, 0x43, 0xb3, 0x4c, 0xcc, 0x0b, 0xdd, 0xdd, 0x6e, 0xf7, 0xe6, 0x3b,
+	0xe9, 0x95, 0xf8, 0xdd, 0x5b, 0xa7, 0x7f, 0x1e, 0x36, 0x06, 0x01, 0xbb, 0xfd, 0xf3, 0x26, 0xdc,
+	0xf6, 0x6a, 0xe4, 0x7b, 0x04, 0x2b, 0xf3, 0x29, 0x91, 0xe7, 0x55, 0x89, 0xc5, 0x15, 0xc4, 0x9b,
+	0x4b, 0x61, 0xcb, 0x5b, 0xd9, 0xd6, 0x97, 0x5f, 0xff, 0xbe, 0xdd, 0x78, 0x4a, 0x1e, 0xf3, 0x6a,
+	0xe7, 0x17, 0x65, 0xf0, 0xe3, 0x50, 0xe1, 0x09, 0xf9, 0x11, 0xc1, 0xfd, 0x6a, 0x86, 0x64, 0xab,
+	0xd6, 0x6f, 0x41, 0x51, 0xf1, 0x8b, 0x25, 0xd1, 0xe1, 0xbe, 0x4d, 0x7f, 0xdf, 0x13, 0xb2, 0x51,
+	0xbd, 0xef, 0xb0, 0x04, 0xf2, 0xe3, 0x8b, 0x96, 0x4f, 0x48, 0x0e, 0xcd, 0x32, 0x5a, 0xc2, 0x6a,
+	0x5d, 0xe6, 0xda, 0x8b, 0x37, 0xae, 0xc5, 0x04, 0x7f, 0xea, 0xfd, 0x3b, 0xa4, 0xcd, 0x6b, 0xdf,
+	0xc4, 0xee, 0xcb, 0xd3, 0x09, 0x8d, 0xce, 0x26, 0x34, 0xfa, 0x3b, 0xa1, 0xd1, 0xd7, 0x29, 0x6d,
+	0x9c, 0x4d, 0x69, 0xe3, 0xf7, 0x94, 0x36, 0x3e, 0xb6, 0xaf, 0x10, 0x8e, 0x3c, 0xc5, 0x15, 0x1a,
+	0xed, 0xb0, 0xe9, 0x9f, 0xd1, 0xab, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x38, 0x79, 0x97, 0xc7,
+	0xc5, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -258,6 +347,8 @@ type QueryClient interface {
 	KyberPublicKey(ctx context.Context, in *QueryKyberPublicKeyRequest, opts ...grpc.CallOption) (*QueryKyberPublicKeyResponse, error)
 	// EncryptedMessage queries an encrypted message by recipient
 	EncryptedMessage(ctx context.Context, in *QueryEncryptedMessageRequest, opts ...grpc.CallOption) (*QueryEncryptedMessageResponse, error)
+	// Params queries all parameters of the PQC module
+	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 }
 
 type queryClient struct {
@@ -286,12 +377,23 @@ func (c *queryClient) EncryptedMessage(ctx context.Context, in *QueryEncryptedMe
 	return out, nil
 }
 
+func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
+	out := new(QueryParamsResponse)
+	err := c.cc.Invoke(ctx, "/baronchain.pqc.Query/Params", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// KyberPublicKey queries a public key by address
 	KyberPublicKey(context.Context, *QueryKyberPublicKeyRequest) (*QueryKyberPublicKeyResponse, error)
 	// EncryptedMessage queries an encrypted message by recipient
 	EncryptedMessage(context.Context, *QueryEncryptedMessageRequest) (*QueryEncryptedMessageResponse, error)
+	// Params queries all parameters of the PQC module
+	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -303,6 +405,9 @@ func (*UnimplementedQueryServer) KyberPublicKey(ctx context.Context, req *QueryK
 }
 func (*UnimplementedQueryServer) EncryptedMessage(ctx context.Context, req *QueryEncryptedMessageRequest) (*QueryEncryptedMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncryptedMessage not implemented")
+}
+func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -345,6 +450,24 @@ func _Query_EncryptedMessage_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryParamsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Params(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/baronchain.pqc.Query/Params",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "baronchain.pqc.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -356,6 +479,10 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EncryptedMessage",
 			Handler:    _Query_EncryptedMessage_Handler,
+		},
+		{
+			MethodName: "Params",
+			Handler:    _Query_Params_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -482,6 +609,62 @@ func (m *QueryEncryptedMessageResponse) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryParamsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryParamsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryParamsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryParamsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Params.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -542,6 +725,26 @@ func (m *QueryEncryptedMessageResponse) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
+	return n
+}
+
+func (m *QueryParamsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.Params.Size()
+	n += 1 + l + sovQuery(uint64(l))
 	return n
 }
 
@@ -860,6 +1063,139 @@ func (m *QueryEncryptedMessageResponse) Unmarshal(dAtA []byte) error {
 			m.Ciphertext = append(m.Ciphertext[:0], dAtA[iNdEx:postIndex]...)
 			if m.Ciphertext == nil {
 				m.Ciphertext = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryParamsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryParamsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryParamsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryParamsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			iNdEx = postIndex
 		default:
