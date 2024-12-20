@@ -4,7 +4,6 @@ go 1.19
 
 require (
 	cosmossdk.io/api v0.3.1
-	cosmossdk.io/log v1.1.0
 	github.com/cometbft/cometbft v0.37.1
 	github.com/cometbft/cometbft-db v0.7.0
 	github.com/cosmos/cosmos-sdk v0.47.3
@@ -21,6 +20,7 @@ require (
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4
 	google.golang.org/grpc v1.55.0
 	gopkg.in/yaml.v2 v2.4.0
+	github.com/cloudflare/circl v1.3.7
 )
 
 require (
@@ -32,6 +32,7 @@ require (
 	cosmossdk.io/core v0.5.1 // indirect
 	cosmossdk.io/depinject v1.0.0-alpha.3 // indirect
 	cosmossdk.io/errors v1.0.0-beta.7 // indirect
+	cosmossdk.io/log v1.1.0 // indirect
 	cosmossdk.io/math v1.0.1 // indirect
 	cosmossdk.io/tools/rosetta v0.2.1 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
