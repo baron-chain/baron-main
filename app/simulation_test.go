@@ -1,5 +1,5 @@
 package app_test
-//BCMOD 
+//BCMOD [ERR#1811] 
 import (
 	"encoding/json"
 	"fmt"
