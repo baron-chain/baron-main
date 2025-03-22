@@ -26,8 +26,8 @@ import (
 
 const (
 	// These constants define the major tool versions used in the project
-	GoVersion     = "1.19"
-	CirclVersion  = "v1.3.7"
+	GoVersion    = "1.19"
+	CirclVersion = "v1.3.7"
 	IgniteVersion = "v0.27.1"
 	_ "github.com/regen-network/cosmos-proto/protoc-gen-gocosmos"
 	_ "github.com/cloudflare/circl"           // CIRCL v1.3.7 for quantum-safe cryptography

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package baronchain.evm;
+
+import "gogoproto/gogo.proto";
+import "baronchain/evm/params.proto";
+
+option go_package = "baronchain/x/evm/types";
+
+// GenesisState defines the evm module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

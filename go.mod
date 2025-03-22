@@ -21,9 +21,11 @@ require (
 	github.com/stretchr/testify v1.8.2
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4
 	google.golang.org/grpc v1.55.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	gopkg.in/yaml.v2 v2.4.0
-	github.com/cloudflare/circl v1.3.7
 )
+
+require github.com/cosmos/cosmos-proto v1.0.0-beta.2 // indirect
 
 require (
 	cloud.google.com/go v0.110.0 // indirect
@@ -54,7 +56,6 @@ require (
 	github.com/coinbase/rosetta-sdk-go/types v1.0.0 // indirect
 	github.com/confio/ics23/go v0.9.0 // indirect
 	github.com/cosmos/btcutil v1.0.5 // indirect
-	github.com/cosmos/cosmos-proto v1.0.0-beta.2 // indirect
 	github.com/cosmos/go-bip39 v1.0.0 // indirect
 	github.com/cosmos/gogogateway v1.2.0 // indirect
 	github.com/cosmos/iavl v0.20.0 // indirect
@@ -133,6 +134,7 @@ require (
 	github.com/prometheus/procfs v0.9.0 // indirect
 	github.com/rakyll/statik v0.1.7 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
+	github.com/regen-network/cosmos-proto v0.3.1
 	github.com/rs/cors v1.8.3 // indirect
 	github.com/rs/zerolog v1.29.1 // indirect
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect

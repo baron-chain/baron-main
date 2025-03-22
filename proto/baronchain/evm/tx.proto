@@ -1,0 +1,7 @@
+syntax = "proto3";
+package baronchain.evm;
+
+option go_package = "baronchain/x/evm/types";
+
+// Msg defines the Msg service.
+service Msg {}

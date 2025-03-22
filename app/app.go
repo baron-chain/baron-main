@@ -113,7 +113,10 @@ import (
 	baronchainmodule "baronchain/x/baronchain"
 	baronchainmodulekeeper "baronchain/x/baronchain/keeper"
 	baronchainmoduletypes "baronchain/x/baronchain/types"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
+	evmmodule "baronchain/x/evm"
+		evmmodulekeeper "baronchain/x/evm/keeper"
+		evmmoduletypes "baronchain/x/evm/types"
+// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "baronchain/app/params"
 	"baronchain/docs"
@@ -174,7 +177,8 @@ var (
 		vesting.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		baronchainmodule.AppModuleBasic{},
-		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		evmmodule.AppModuleBasic{},
+// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
 	// module account permissions
@@ -187,7 +191,8 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		// this line is used by starport scaffolding # stargate/app/maccPerms
+		evmmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
 
@@ -250,7 +255,9 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	BaronchainKeeper baronchainmodulekeeper.Keeper
-	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+	
+		EvmKeeper evmmodulekeeper.Keeper
+// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
 	mm *module.Manager
@@ -297,7 +304,8 @@ func New(
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icahosttypes.StoreKey,
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
 		baronchainmoduletypes.StoreKey,
-		// this line is used by starport scaffolding # stargate/app/storeKey
+		evmmoduletypes.StoreKey,
+// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -527,7 +535,19 @@ func New(
 	)
 	baronchainModule := baronchainmodule.NewAppModule(appCodec, app.BaronchainKeeper, app.AccountKeeper, app.BankKeeper)
 
-	// this line is used by starport scaffolding # stargate/app/keeperDefinition
+	
+		app.EvmKeeper = *evmmodulekeeper.NewKeeper(
+			appCodec,
+			keys[evmmoduletypes.StoreKey],
+			keys[evmmoduletypes.MemStoreKey],
+			app.GetSubspace(evmmoduletypes.ModuleName),
+			
+			app.BankKeeper,
+app.StakingKeeper,
+)
+		evmModule := evmmodule.NewAppModule(appCodec, app.EvmKeeper, app.AccountKeeper, app.BankKeeper)
+
+		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
 
@@ -589,7 +609,8 @@ func New(
 		transferModule,
 		icaModule,
 		baronchainModule,
-		// this line is used by starport scaffolding # stargate/app/appModule
+		evmModule,
+// this line is used by starport scaffolding # stargate/app/appModule
 
 		crisis.NewAppModule(app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)), // always be last to make sure that it checks for all invariants and not only part of them
 	)
@@ -622,7 +643,8 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/beginBlockers
+		evmmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -648,7 +670,8 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/endBlockers
+		evmmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -679,7 +702,8 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
-		// this line is used by starport scaffolding # stargate/app/initGenesis
+		evmmoduletypes.ModuleName,
+// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 	app.mm.SetOrderInitGenesis(genesisModuleOrder...)
 	app.mm.SetOrderExportGenesis(genesisModuleOrder...)
@@ -904,7 +928,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(baronchainmoduletypes.ModuleName)
-	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(evmmoduletypes.ModuleName)
+// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
 }
