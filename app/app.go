@@ -113,10 +113,13 @@ import (
 	baronchainmodule "baronchain/x/baronchain"
 	baronchainmodulekeeper "baronchain/x/baronchain/keeper"
 	baronchainmoduletypes "baronchain/x/baronchain/types"
+	bcevmmodule "baronchain/x/bcevm"
+	bcevmmodulekeeper "baronchain/x/bcevm/keeper"
+	bcevmmoduletypes "baronchain/x/bcevm/types"
 	evmmodule "baronchain/x/evm"
-		evmmodulekeeper "baronchain/x/evm/keeper"
-		evmmoduletypes "baronchain/x/evm/types"
-// this line is used by starport scaffolding # stargate/app/moduleImport
+	evmmodulekeeper "baronchain/x/evm/keeper"
+	evmmoduletypes "baronchain/x/evm/types"
+	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "baronchain/app/params"
 	"baronchain/docs"
@@ -178,7 +181,8 @@ var (
 		consensus.AppModuleBasic{},
 		baronchainmodule.AppModuleBasic{},
 		evmmodule.AppModuleBasic{},
-// this line is used by starport scaffolding # stargate/app/moduleBasic
+		bcevmmodule.AppModuleBasic{},
+		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
 	// module account permissions
@@ -191,8 +195,9 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		evmmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
-// this line is used by starport scaffolding # stargate/app/maccPerms
+		evmmoduletypes.ModuleName:      {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		bcevmmoduletypes.ModuleName:    {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
 
@@ -255,9 +260,11 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	BaronchainKeeper baronchainmodulekeeper.Keeper
-	
-		EvmKeeper evmmodulekeeper.Keeper
-// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+
+	EvmKeeper evmmodulekeeper.Keeper
+
+	BcevmKeeper bcevmmodulekeeper.Keeper
+	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
 	mm *module.Manager
@@ -305,7 +312,8 @@ func New(
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
 		baronchainmoduletypes.StoreKey,
 		evmmoduletypes.StoreKey,
-// this line is used by starport scaffolding # stargate/app/storeKey
+		bcevmmoduletypes.StoreKey,
+		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -535,19 +543,29 @@ func New(
 	)
 	baronchainModule := baronchainmodule.NewAppModule(appCodec, app.BaronchainKeeper, app.AccountKeeper, app.BankKeeper)
 
-	
-		app.EvmKeeper = *evmmodulekeeper.NewKeeper(
-			appCodec,
-			keys[evmmoduletypes.StoreKey],
-			keys[evmmoduletypes.MemStoreKey],
-			app.GetSubspace(evmmoduletypes.ModuleName),
-			
-			app.BankKeeper,
-app.StakingKeeper,
-)
-		evmModule := evmmodule.NewAppModule(appCodec, app.EvmKeeper, app.AccountKeeper, app.BankKeeper)
+	app.EvmKeeper = *evmmodulekeeper.NewKeeper(
+		appCodec,
+		keys[evmmoduletypes.StoreKey],
+		keys[evmmoduletypes.MemStoreKey],
+		app.GetSubspace(evmmoduletypes.ModuleName),
 
-		// this line is used by starport scaffolding # stargate/app/keeperDefinition
+		app.BankKeeper,
+		app.StakingKeeper,
+	)
+	evmModule := evmmodule.NewAppModule(appCodec, app.EvmKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.BcevmKeeper = *bcevmmodulekeeper.NewKeeper(
+		appCodec,
+		keys[bcevmmoduletypes.StoreKey],
+		keys[bcevmmoduletypes.MemStoreKey],
+		app.GetSubspace(bcevmmoduletypes.ModuleName),
+
+		app.BankKeeper,
+		app.StakingKeeper,
+	)
+	bcevmModule := bcevmmodule.NewAppModule(appCodec, app.BcevmKeeper, app.AccountKeeper, app.BankKeeper)
+
+	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
 
@@ -610,7 +628,8 @@ app.StakingKeeper,
 		icaModule,
 		baronchainModule,
 		evmModule,
-// this line is used by starport scaffolding # stargate/app/appModule
+		bcevmModule,
+		// this line is used by starport scaffolding # stargate/app/appModule
 
 		crisis.NewAppModule(app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)), // always be last to make sure that it checks for all invariants and not only part of them
 	)
@@ -644,7 +663,8 @@ app.StakingKeeper,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
 		evmmoduletypes.ModuleName,
-// this line is used by starport scaffolding # stargate/app/beginBlockers
+		bcevmmoduletypes.ModuleName,
+		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -671,7 +691,8 @@ app.StakingKeeper,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
 		evmmoduletypes.ModuleName,
-// this line is used by starport scaffolding # stargate/app/endBlockers
+		bcevmmoduletypes.ModuleName,
+		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -703,7 +724,8 @@ app.StakingKeeper,
 		consensusparamtypes.ModuleName,
 		baronchainmoduletypes.ModuleName,
 		evmmoduletypes.ModuleName,
-// this line is used by starport scaffolding # stargate/app/initGenesis
+		bcevmmoduletypes.ModuleName,
+		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 	app.mm.SetOrderInitGenesis(genesisModuleOrder...)
 	app.mm.SetOrderExportGenesis(genesisModuleOrder...)
@@ -929,7 +951,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(baronchainmoduletypes.ModuleName)
 	paramsKeeper.Subspace(evmmoduletypes.ModuleName)
-// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(bcevmmoduletypes.ModuleName)
+	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
 }

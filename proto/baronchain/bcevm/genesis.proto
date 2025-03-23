@@ -1,0 +1,12 @@
+syntax = "proto3";
+package baronchain.bcevm;
+
+import "gogoproto/gogo.proto";
+import "baronchain/bcevm/params.proto";
+
+option go_package = "baronchain/x/bcevm/types";
+
+// GenesisState defines the bcevm module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

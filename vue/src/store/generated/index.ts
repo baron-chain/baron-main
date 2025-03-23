@@ -1,6 +1,8 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
 import BaronchainBaronchain from './baronchain.baronchain'
+import BaronchainBcevm from './baronchain.bcevm'
+import BaronchainEvm from './baronchain.evm'
 import BaronchainTokenbank from './baronchain.tokenbank'
 import CosmosAuthV1Beta1 from './cosmos.auth.v1beta1'
 import CosmosAuthzV1Beta1 from './cosmos.authz.v1beta1'
@@ -33,6 +35,8 @@ import IbcCoreConnectionV1 from './ibc.core.connection.v1'
 
 export default { 
   BaronchainBaronchain: load(BaronchainBaronchain, 'baronchain.baronchain'),
+  BaronchainBcevm: load(BaronchainBcevm, 'baronchain.bcevm'),
+  BaronchainEvm: load(BaronchainEvm, 'baronchain.evm'),
   BaronchainTokenbank: load(BaronchainTokenbank, 'baronchain.tokenbank'),
   CosmosAuthV1Beta1: load(CosmosAuthV1Beta1, 'cosmos.auth.v1beta1'),
   CosmosAuthzV1Beta1: load(CosmosAuthzV1Beta1, 'cosmos.authz.v1beta1'),

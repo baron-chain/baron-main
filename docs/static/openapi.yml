@@ -40,6 +40,78 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /baronchain/bcevm/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: BaronchainBcevmParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /baronchain/evm/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: BaronchainEvmParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /baronchain/tokenbank/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -46843,6 +46915,26 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
+  baronchain.bcevm.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  baronchain.bcevm.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  baronchain.evm.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  baronchain.evm.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
   baronchain.tokenbank.Params:
     type: object
     description: Params defines the parameters for the module.
